@@ -17,6 +17,7 @@ services:
       MONGO_INITDB_DATABASE: $MONGO_DATABASE
     networks:
       - smart-shell-net  # Conexión a la red smart-shell-net
+    restart: unless-stopped
 
 networks:
   smart-shell-net:  # Definición de la red smart-shell-net

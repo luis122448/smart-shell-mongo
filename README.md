@@ -6,10 +6,10 @@ Este repositorio tiene como objetivo automatizar el despliegue de una base de da
   
 ## Desplegando con DOCKER COMPOSE
 
-1. **Clonar el Repositorio:**
+1. **Clonar el Repositorio**
 
     ```bash
-        git clone https://github.com/yourusername/mongo-db-container.git
+        git clone https://github.com/luis122448/smart-shell-mongo.git
     ```
 
 2. **Ingresar al directorio del proyecto**
@@ -51,7 +51,7 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
 
 1. **Ingresando al contededor**
     ```bash
-        docker exec -it mongo-smart-shell bash
+        sudo docker exec -it mongo-smart-shell bash
     ```
 
 2. **Realizando conexion**
