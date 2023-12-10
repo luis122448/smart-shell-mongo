@@ -49,39 +49,39 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
 
 ## Verificacion del despliegue
 
-1. **Conexion al CONTENEDOR**
+1. **Ingresando al contededor**
     ```bash
         docker exec -it mongo-smart-shell bash
     ```
 
-2. **Conexión a la BASE DE DATOS de Redis**
+2. **Realizando conexion**
     ```bash
         mongo --username <username> --password <password> --authenticationDatabase <database> --host <ip_del_servidor>:<puerto>
     ```
 
-3. **Auhenticando**
+3. **Identificando la base de datos**
     ```bash
-        use mi_basededatos
+        use <database>
     ```
 
-4. **Verificando conexion**
+4. **Creando coleccion**
     ```bash
-        db.createCollection("mi_coleccion")
+        db.createCollection("test")
     ```
 
-5. **Informacion del servidor**
+5. **Insertar datos**
     ```bash
-        db.mi_coleccion.insert({
+        db.test.insert({
         "nombre": "Ejemplo",
         "edad": 30,
         "email": "ejemplo@email.com"
         })
     ```
 
-1. **Ejecutar el script de despliegue**
+1. **Consultar datos**
     
     ```bash
-        db.mi_coleccion.find()
+        db.test.find()
     ```
 
 ## Cadena de Conexion
