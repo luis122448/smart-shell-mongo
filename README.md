@@ -64,7 +64,7 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
 
 1. **Ingresando al contededor**
     ```bash
-        sudo docker exec -it mongo-smart-shell bash
+        sudo docker exec -it smart-shell-mongo bash
     ```
 
 2. **Realizando conexion**
