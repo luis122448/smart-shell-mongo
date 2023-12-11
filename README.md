@@ -34,7 +34,7 @@ Este repositorio tiene como objetivo automatizar el despliegue de una base de da
 
 5. **Crear (si no existe) el network**
     ```bash
-        docker network create smart-shell-net
+        sudo docker network create smart-shell-net
     ```
 
 ## Scripts
@@ -56,7 +56,7 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
 
 2. **Realizando conexion**
     ```bash
-        mongo --username <username> --password <password> --authenticationDatabase <database> --host <ip_del_servidor>:<puerto>
+        mongosh --username <username> --password <password>
     ```
 
 3. **Identificando la base de datos**
