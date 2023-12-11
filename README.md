@@ -15,7 +15,7 @@ Este repositorio tiene como objetivo automatizar el despliegue de una base de da
 2. **Ingresar al directorio del proyecto**
 
     ```bash
-        cd mongo-db-container
+        cd smart-shell-mongo
     ```
 
 3. **Ejecutar el script de instalación**
