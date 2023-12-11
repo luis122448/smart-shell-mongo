@@ -2,7 +2,7 @@
 
 # Despliegue Automatizado de Base de Datos Mongo con Docker
 
-Este repositorio tiene como objetivo automatizar el despliegue de una base de datos Mongo en un contenedor de Docker, proporcionando una solución para el almacenamiento de archivos.
+Este repositorio tiene como objetivo automatizar el despliegue de una base de datos Mongo en un contenedor de Docker, proporcionando una solución para el almacenamiento de archivos del proyecto Smart Shell.
   
 ## Desplegando con DOCKER COMPOSE
 
@@ -27,7 +27,7 @@ Este repositorio tiene como objetivo automatizar el despliegue de una base de da
 4. **Defina las credenciales en el archivo .env**
     
     ```bash
-        MONGO_USER=''
+        MONGO_USERNAME=''
         MONGO_PASSWORD=''
         MONGO_DATABASE=''
     ```
@@ -39,13 +39,26 @@ Este repositorio tiene como objetivo automatizar el despliegue de una base de da
 
 ## Scripts
 
-The `scripts/init.js` file contains initialization scripts for the MongoDB container. These scripts are run when the container is started. You can modify this file to set up initial collections, indexes, or seed data.
+El archivo `scripts/init.js` contiene los scripts que se ejecutarán al iniciar el contenedor, en este caso se crea un usuario con permisos de administrador para la base de datos.
+
+    ```javascript
+        const password = process.env.MONGO_PASSWORD || "default_password"; // Obtener el password de la variable de entorno o utilizar uno por defecto
+        db.createUser({
+            user: "user-smart-shell",
+            pwd: password,
+            roles: [
+                {
+                    role: "readWrite",
+                    db: "smart-shell"
+                }
+            ]
+        });
+    ```
 
 ## Despliegue en Producción
 
 Para el despliegue en producción se ha utilizado Docker y Docker Compose, puede revisar el archivo docker-compose.yml para conocer los detalles de la configuración.
 Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
-
 
 ## Verificacion del despliegue
 
@@ -88,9 +101,10 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
  Configuracion para un proyecto de JAVA con SPRING BOOT (application.properties).
     ```properties
         # Configuración de Mongo
-        spring.redis.host=${REDIS_HOST:localhost}
-        spring.redis.port=${REDIS_PORT:6379}
-        spring.redis.password=${REDIS_PASSWORD:mysecurepassword}
+        spring.data.mongodb.uri=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/${MONGO_DATABASE}?retryWrites=true&w=majority
+        spring.data.mongodb.database=${MONGO_DATABASE}
+        spring.data.mongodb.username=${MONGO_USERNAME}
+        spring.data.mongodb.password=${MONGO_PASSWORD}
     ```
 
 ## Contribuciones
