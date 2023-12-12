@@ -4,7 +4,7 @@
 
 Este repositorio tiene como objetivo automatizar el despliegue de una base de datos Mongo en un contenedor de Docker, proporcionando una solución para el almacenamiento de archivos del proyecto Smart Shell.
   
-## Desplegando con DOCKER COMPOSE
+## Configuracion del Entorno
 
 1. **Clonar el Repositorio**
 
