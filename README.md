@@ -25,8 +25,11 @@ Este repositorio tiene como objetivo automatizar el despliegue de una base de da
     ```
 
 4. **Defina las credenciales en el archivo .env**
-    
     ```bash
+        nano .env
+    ```
+    
+    ```env
         MONGO_USERNAME=''
         MONGO_PASSWORD=''
         MONGO_DATABASE=''
@@ -39,7 +42,7 @@ Este repositorio tiene como objetivo automatizar el despliegue de una base de da
 
 ## Scripts
 
-El archivo `scripts/init.js` contiene los scripts que se ejecutarán al iniciar el contenedor, en este caso se crea un usuario con permisos de administrador para la base de datos.
+El directorio `scripts/init.js` contiene los scripts que se ejecutarán al iniciar el contenedor, en este caso se crea un usuario con permisos de administrador para la base de datos.
 
     ```javascript
         const password = process.env.MONGO_PASSWORD || "default_password"; // Obtener el password de la variable de entorno o utilizar uno por defecto
