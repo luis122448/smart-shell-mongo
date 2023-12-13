@@ -65,7 +65,7 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
 
 ## Verificacion del despliegue
 
-1. **Ingresando al contededor**
+1. **Ingresando al contededor**f
     ```bash
         sudo docker exec -it smart-shell-mongo bash
     ```
