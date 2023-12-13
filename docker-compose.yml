@@ -10,6 +10,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
+      - ./configurations:/docker-entrypoint-initdb.d
       - ./init-scripts:/docker-entrypoint-initdb.d
       - ./data:/data/db
     environment:
