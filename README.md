@@ -2,8 +2,28 @@
 
 # Despliegue Automatizado de Base de Datos Mongo con Docker
 
-Este repositorio tiene como objetivo automatizar el despliegue de una base de datos Mongo en un contenedor de Docker, proporcionando una solución para el almacenamiento de archivos del proyecto Smart Shell.
-  
+Este repositorio tiene como objetivo automatizar el despliegue de una base de datos Mongo en un contenedor de Docker, proporcionando una solución para el almacenamiento de archivos binarios para el proyecto de Smart-Shell ( Facturador Electronico ) y Platform-Training ( Plataforma de Capacitacion )
+    
+## Repositorios Relacionados
+
+### Repositorio Actual
+- [Smart-Shell-Mongo](https://github.com/luis122448/smart-shell-mongo)
+
+### Repositorios Relacionados
+
+Repositorios referidos al BACKEND y FRONTEND de la aplicacion Smart-Shell y Platform-Training.
+- [Smart-Shell-Angular](https://github.com/luis122448/smart-shell-angular)
+- [Smart-Shell-SpringBoot](https://github.com/luis122448/smart-shell-springboot)
+- [Platform-Training-Angular](https://github.com/luis122448/platform-training-angular)
+- [Platform-Training-SpringBoot](https://github.com/luis122448/platform-training-springboot)
+
+Repositorios relacionado a la automatizacion de despliegue.
+- [Smart-Shell-Bash](https://github.com/luis122448/smart-shell-bash)
+
+Repositorios relacionados a otras bases de datos del proyecto Smart-Shell.
+- [Smart-Shell-Postgres](https://github.com/luis122448/smart-shell-postgres)
+- [Smart-Shell-Redis](https://github.com/luis122448/smart-shell-redis)
+
 ## Configuracion del Entorno
 
 1. **Clonar el Repositorio**
@@ -94,7 +114,7 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
         })
     ```
 
-1. **Consultar datos**
+6. **Consultar datos**
     
     ```bash
         db.test.find()
@@ -102,7 +122,8 @@ Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
 
 ## Cadena de Conexion
  Configuracion para un proyecto de JAVA con SPRING BOOT (application.properties).
-    ```properties
+
+    ```bash
         # Configuración de Mongo
         spring.data.mongodb.uri=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/${MONGO_DATABASE}?retryWrites=true&w=majority
         spring.data.mongodb.database=${MONGO_DATABASE}
