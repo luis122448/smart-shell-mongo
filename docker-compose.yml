@@ -1,5 +1,5 @@
 services:
-  mongodb:
+  smart-shell-mongo:
     container_name: smart-shell-mongo
     build: 
       context: .
