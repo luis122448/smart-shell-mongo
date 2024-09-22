@@ -1,14 +1,8 @@
-# Verificar si el contenedor existe
-if sudo docker ps -a | grep -q "smart-shell-mongo"; then
-    # Si existe, eliminar el contenedor
-    sudo docker rm -f smart-shell-mongo
-fi
-
-# Creando archivo .env para variables de entorno
+# Create environment variables file
 touch .env
 
-# Creando el directorio data/db para almacenar los datos de la base de datos
-mkdir -p data
+# Delete directories
+rm -rf /var/www/volumes/smart-shell/smart-shell-mongo/data
 
-# Limpiando el directorio data ( Eliminar archivos de persistencia del contenedor )
-rm -rf data/*
+# Create directories
+mkdir -p /var/www/volumes/smart-shell/smart-shell-mongo/data
