@@ -1,3 +1,4 @@
+#!/bin/bash
 # Description: Deploy the application
 
 # Stop the application
