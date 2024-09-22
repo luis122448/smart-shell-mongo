@@ -1,15 +1,13 @@
 services:
-  smart-shell-mongo:
+  app:
     container_name: smart-shell-mongo
+    env_file:
+      - ./.env
     build: 
       context: .
       dockerfile: Dockerfile
-    env_file:
-      - ./.env
     ports:
       - "27017:27017"
-    volumes:
-      - ./data:/data/db
     volumes:
       - /var/www/volumes/smart-shell/smart-shell-mongo/data:/data/db
     environment:
