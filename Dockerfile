@@ -10,5 +10,4 @@ COPY ./init-scripts /opt/docker-entrypoint-initdb.d
 COPY ./configurations /opt/docker-entrypoint-initdb.ds
 COPY ./configurations /opt/configurations
 
-# Opcional: Expone el puerto por defecto de MongoDB (27017)
 EXPOSE 27017
