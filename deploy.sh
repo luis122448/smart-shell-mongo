@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/bash 
 # Description: Deploy the application
+set -e
+set -x
 
 # Stop the application
 sudo docker compose down
