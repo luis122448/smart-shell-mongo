@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+  namespace: smart-shell-production
+spec:
+  # clusterIP: None makes this a "headless" service.
+  # It doesn't get a single ClusterIP but instead creates DNS records
+  # that point directly to the pods selected below.
+  clusterIP: None
+  ports:
+    - port: 27017
+      name: mongo
+  # This selector is crucial. The service will look for any Pods
+  # that have the label "app: mongo". This is how the service
+  # knows which pods are part of the database group.
+  selector:
+    app: mongo

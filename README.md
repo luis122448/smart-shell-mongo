@@ -1,138 +1,152 @@
-![Logo del Projecto](./resources/logo.png)
+# Automated MongoDB Database Deployment with Docker
 
-# Despliegue Automatizado de Base de Datos Mongo con Docker
+This repository aims to automate the deployment of a MongoDB database in a Docker container, providing a solution for storing binary files for the Smart-Shell (Electronic Invoicing) and Platform-Training (Training Platform) projects.
 
-Este repositorio tiene como objetivo automatizar el despliegue de una base de datos Mongo en un contenedor de Docker, proporcionando una solución para el almacenamiento de archivos binarios para el proyecto de Smart-Shell ( Facturador Electronico ) y Platform-Training ( Plataforma de Capacitacion )
-    
-## Repositorios Relacionados
+## Related Repositories
 
-### Repositorio Actual
+### Current Repository
 - [Smart-Shell-Mongo](https://github.com/luis122448/smart-shell-mongo)
 
-### Repositorios Relacionados
+### Related Repositories
 
-Repositorios referidos al BACKEND y FRONTEND de la aplicacion Smart-Shell y Platform-Training.
+Repositories related to the BACKEND and FRONTEND of the Smart-Shell and Platform-Training applications.
 - [Smart-Shell-Angular](https://github.com/luis122448/smart-shell-angular)
 - [Smart-Shell-SpringBoot](https://github.com/luis122448/smart-shell-springboot)
 - [Platform-Training-Angular](https://github.com/luis122448/platform-training-angular)
 - [Platform-Training-SpringBoot](https://github.com/luis122448/platform-training-springboot)
 
-Repositorios relacionado a la automatizacion de despliegue.
+Repositories related to deployment automation.
 - [Smart-Shell-Bash](https://github.com/luis122448/smart-shell-bash)
 
-Repositorios relacionados a otras bases de datos del proyecto Smart-Shell.
+Repositories related to other databases of the Smart-Shell project.
 - [Smart-Shell-Postgres](https://github.com/luis122448/smart-shell-postgres)
 - [Smart-Shell-Redis](https://github.com/luis122448/smart-shell-redis)
 
-## Configuracion del Entorno
+## Environment Setup
 
-1. **Clonar el Repositorio**
-
-    ```bash
-        git clone https://github.com/luis122448/smart-shell-mongo.git
-    ```
-
-2. **Ingresar al directorio del proyecto**
+1.  **Clone the Repository**
 
     ```bash
-        cd smart-shell-mongo
+    git clone https://github.com/luis122448/smart-shell-mongo.git
     ```
 
-3. **Ejecutar el script de instalación**
-    
+2.  **Enter the project directory**
+
     ```bash
-        sudo bash dev-install.sh
+    cd smart-shell-mongo
     ```
 
-4. **Defina las credenciales en el archivo .env**
+3.  **Run the installation script**
+
     ```bash
-        nano .env
+    sudo bash install.sh
     ```
-    
+
+4.  **Define the credentials in the .env file**
+    ```bash
+    nano .env
+    ```
+
     ```env
-        MONGO_USERNAME=''
-        MONGO_PASSWORD=''
-        MONGO_DATABASE=''
+    MONGO_USERNAME=''
+    MONGO_PASSWORD=''
+    MONGO_DATABASE=''
     ```
 
-5. **Crear (si no existe) el network**
+5.  **Create the network (if it doesn't exist)**
     ```bash
-        sudo docker network create smart-shell-net
+    sudo docker network create smart-shell-net
     ```
 
 ## Scripts
 
-El directorio `scripts/init.js` contiene los scripts que se ejecutarán al iniciar el contenedor, en este caso se crea un usuario con permisos de administrador para la base de datos.
+The `init-scripts/00 - USER.js` directory contains the scripts that will be executed when the container starts. In this case, a user with administrator permissions is created for the database.
 
-    ```javascript
-        const password = process.env.MONGO_PASSWORD || "default_password"; // Obtener el password de la variable de entorno o utilizar uno por defecto
-        db.createUser({
-            user: "user-smart-shell",
-            pwd: password,
-            roles: [
-                {
-                    role: "readWrite",
-                    db: "smart-shell"
-                }
-            ]
-        });
-    ```
+```javascript
+const password = process.env.MONGO_PASSWORD || "default_password"; // Get the password from the environment variable or use a default one
+db.createUser({
+    user: "user-smart-shell",
+    pwd: password,
+    roles: [
+        {
+            role: "readWrite",
+            db: "smart-shell"
+        }
+    ]
+});
+```
 
-## Despliegue en Producción
+## Production Deployment with Docker
 
-Para el despliegue en producción se ha utilizado Docker y Docker Compose, puede revisar el archivo docker-compose.yml para conocer los detalles de la configuración.
-Asimismo no se olvide de modificar las variables de entono, en asi archivo .env
+For production deployment, Docker and Docker Compose have been used. You can review the `docker-compose.yml` file for configuration details.
+Also, don't forget to modify the environment variables in your `.env` file.
 
-## Verificacion del despliegue
+## Deploying with Kubernetes
 
-1. **Ingresando al contededor**f
+For a more robust and scalable deployment, you can use Kubernetes. The `kubernetes` directory contains the necessary manifests to deploy this application in a Kubernetes cluster.
+
+For detailed instructions, please refer to the [Kubernetes Readme](./kubernetes/kubernetes-readme.md).
+
+## Verifying the Deployment
+
+### Installing `mongosh`
+
+To connect to the MongoDB database, you will need the MongoDB Shell, `mongosh`. You can install it by following the official instructions for your operating system:
+
+- [Install `mongosh` on Linux](https://www.mongodb.com/docs/mongodb-shell/install/#std-label-mdb-shell-install)
+- [Install `mongosh` on Windows](https://www.mongodb.com/docs/mongodb-shell/install/#std-label-mdb-shell-install-windows)
+- [Install `mongosh` on macOS](https://www.mongodb.com/docs/mongodb-shell/install/#std-label-mdb-shell-install-macos)
+
+### Connecting to the database
+
+1.  **Accessing the container**
     ```bash
-        sudo docker exec -it smart-shell-mongo bash
+    sudo docker exec -it smart-shell-mongo bash
     ```
 
-2. **Realizando conexion**
+2.  **Connecting to the database**
     ```bash
-        mongosh --username <username> --password <password>
+    mongosh --username <username> --password <password>
     ```
 
-3. **Identificando la base de datos**
+3.  **Identifying the database**
     ```bash
-        use <database>
+    use <database>
     ```
 
-4. **Creando coleccion**
+4.  **Creating a collection**
     ```bash
-        db.createCollection("test")
+    db.createCollection("test")
     ```
 
-5. **Insertar datos**
+5.  **Inserting data**
     ```bash
-        db.test.insert({
-        "nombre": "Ejemplo",
-        "edad": 30,
-        "email": "ejemplo@email.com"
-        })
+    db.test.insertOne({
+        "name": "Example",
+        "age": 30,
+        "email": "example@email.com"
+    })
     ```
 
-6. **Consultar datos**
-    
-    ```bash
-        db.test.find()
-    ```
-
-## Cadena de Conexion
- Configuracion para un proyecto de JAVA con SPRING BOOT (application.properties).
+6.  **Querying data**
 
     ```bash
-        # Configuración de Mongo
-        spring.data.mongodb.uri=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/${MONGO_DATABASE}?retryWrites=true&w=majority
-        spring.data.mongodb.database=${MONGO_DATABASE}
-        spring.data.mongodb.username=${MONGO_USERNAME}
-        spring.data.mongodb.password=${MONGO_PASSWORD}
+    db.test.find()
     ```
 
-## Contribuciones
-Las contribuciones son bienvenidas. Siéntete libre de mejorar este proyecto, agregar nuevas características o corregir problemas identificados. Para contribuir, crea un Pull Request o abre un Issue.
+## Connection String
+Configuration for a JAVA project with SPRING BOOT (application.properties).
 
-## Licencia
-Este proyecto está bajo la licencia MIT License.
+```bash
+# Mongo Configuration
+spring.data.mongodb.uri=mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@localhost:27017/${MONGO_DATABASE}?retryWrites=true&w=majority
+spring.data.mongodb.database=${MONGO_DATABASE}
+spring.data.mongodb.username=${MONGO_USERNAME}
+spring.data.mongodb.password=${MONGO_PASSWORD}
+```
+
+## Contributions
+Contributions are welcome. Feel free to improve this project, add new features, or fix identified issues. To contribute, create a Pull Request or open an Issue.
+
+## License
+This project is under the MIT License.

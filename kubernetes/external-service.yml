@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-external-service
+  namespace: smart-shell-production
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "192.168.100.241"
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.100.241
+  ports:
+    - port: 27017
+      targetPort: 27017
+      protocol: TCP
+  selector:
+    app: mongo

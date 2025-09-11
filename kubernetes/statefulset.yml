@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo-sts
+  namespace: smart-shell-production
+spec:
+  # This MUST match the name of the Headless Service defined above.
+  # It tells the StatefulSet which service controls the network domain for its pods.
+  serviceName: "mongo-svc"
+  replicas: 1 # Start with one replica for a simple setup
+  
+  # The StatefulSet's own selector. It will manage any pods that
+  # have the label "app: mongo".
+  selector:
+    matchLabels:
+      app: mongo
+      
+  # This is the template used to create the Pods.
+  template:
+    metadata:
+      # These are the labels applied to each Pod created by this StatefulSet.
+      # This MUST match the `selector.matchLabels` above. This is the most
+      # common point of confusion:
+      #   - `StatefulSet.spec.selector` says "I am looking for pods with this label."
+      #   - `StatefulSet.spec.template.metadata.labels` says "Create pods with this label."
+      # They must match for the StatefulSet to manage its own pods.
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - name: mongo
+          image: luis122448/smart-shell-mongo:v1.0.0
+          ports:
+            - containerPort: 27017
+              name: mongo
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_INITDB_ROOT_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
+            - name: MONGO_INITDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_INITDB_DATABASE
+          # Mount the persistent volume inside the container.
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
+              
+  # This template defines the PersistentVolumeClaim (PVC) for each pod.
+  # When a pod like `mongo-statefulset-0` is created, a PVC named
+  # `mongo-storage-mongo-statefulset-0` will be automatically created
+  # and bound to a PersistentVolume, ensuring data persistence.
+  volumeClaimTemplates:
+    - metadata:
+        name: mongo-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "nas-003"
+        resources:
+          requests:
+            storage: 5Gi # Request 5 Gigabytes of storage
