@@ -1,5 +1,7 @@
 FROM mongo
-LABEL luis122448 <luis122448gmail.com>
+
+LABEL mantainer=luis122448
+LABEL email=luis122448gmail
 
 WORKDIR /opt
 

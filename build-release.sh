@@ -3,7 +3,7 @@
 
 # --- Configuration ---
 DOCKER_USERNAME="luis122448"
-IMAGE_NAME="smart-shell-mongo"
+IMAGE_NAME="my-portfolio"
 DOCKERFILE_PATH="." # Path to the directory containing the Dockerfile
 
 # --- Functions ---
