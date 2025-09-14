@@ -42,7 +42,7 @@ This service defines a DNS domain for the pods managed by the `StatefulSet`. It'
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongo-svc
+  name: mongo-service
   namespace: smart-shell-production
 spec:
   # clusterIP: None makes this a "headless" service.
@@ -74,7 +74,7 @@ metadata:
 spec:
   # This MUST match the name of the Headless Service defined above.
   # It tells the StatefulSet which service controls the network domain for its pods.
-  serviceName: "mongo-svc"
+  serviceName: "mongo-service"
   replicas: 1 # Start with one replica for a simple setup
   
   # The StatefulSet's own selector. It will manage any pods that
@@ -151,7 +151,7 @@ Let's break down the connections:
 2.  **`Service` -> `Pod` Connection**:
     *   The `Service` has a `spec.selector` field (e.g., `app: mongo`).
     *   This tells the `Service`: "Find all Pods with this label and create DNS entries for them."
-    *   Since the `StatefulSet` is already creating pods with this label, the `Service` automatically finds them and makes them available on the network (e.g., `mongo-statefulset-0.mongo-svc`).
+    *   Since the `StatefulSet` is already creating pods with this label, the `Service` automatically finds them and makes them available on the network (e.g., `mongo-statefulset-0.mongo-service`).
 
 By using this label (`app: mongo`) consistently across all components, you create a robust link between your network, your controller, and your pods.
 
@@ -176,7 +176,7 @@ This method is designed to securely expose the database to the internet through 
 
 *   **Technology:** It uses an `frpc` client (configured via `frpc-configmap.yaml`) running inside the cluster. This client establishes a reverse tunnel to an `frps` server on a public VPS.
 *   **Relevant Manifest:** `frpc-configmap.yaml`
-*   **Traffic Path:** The `frpc` client connects to the *internal* database service (`mongo-svc.smart-shell-production.svc.cluster.local`) and exposes that tunnel on the VPS.
+*   **Traffic Path:** The `frpc` client connects to the *internal* database service (`mongo-service.smart-shell-production.svc.cluster.local`) and exposes that tunnel on the VPS.
 *   **Connection Details:**
     *   **IP Address:** The public IP address of your VPS where `frps` is running.
     *   **Port:** `27017` (or the `remotePort` you have configured in `frpc.toml`).

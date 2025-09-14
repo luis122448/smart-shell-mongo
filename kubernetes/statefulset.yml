@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mongo-sts
+  name: mongo-statefulset
   namespace: smart-shell-production
 spec:
   # This MUST match the name of the Headless Service defined above.
   # It tells the StatefulSet which service controls the network domain for its pods.
-  serviceName: "mongo-svc"
+  serviceName: "mongo-service"
   replicas: 1 # Start with one replica for a simple setup
   
   # The StatefulSet's own selector. It will manage any pods that
