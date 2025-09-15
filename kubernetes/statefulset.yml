@@ -63,7 +63,7 @@ spec:
         name: mongo-storage
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: "nas-003"
+        storageClassName: "nas-002"
         resources:
           requests:
             storage: 5Gi # Request 5 Gigabytes of storage

@@ -1,19 +1,19 @@
 services:
   app:
     container_name: smart-shell-mongo
-    env_file:
-      - ./.env
     build: 
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "${SMART_SHELL_MONGO_PORT}:27017"
-    volumes:
-      - /var/www/volumes/smart-shell/smart-shell-mongo/data:/data/db
+    env_file:
+      - ./.env
     environment:
       MONGO_INITDB_ROOT_USERNAME: $SMART_SHELL_MONGO_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $SMART_SHELL_MONGO_PASSWORD
       MONGO_INITDB_DATABASE: $SMART_SHELL_MONGO_DATABASE
+    ports:
+      - "${SMART_SHELL_MONGO_PORT}:27017"
+    volumes:
+      - /var/www/volumes/smart-shell/smart-shell-mongo/data:/data/db
     networks:
       - smart-shell-net
     restart: unless-stopped
